@@ -1,0 +1,10 @@
+{
+	"name": "andthen",
+	"bin" : {
+		"andthen" : "./andthen.js"
+	},
+	"version": "1.0.0",
+	"devDependencies": {
+		"chalk": "^2.4.2"
+	}
+}
