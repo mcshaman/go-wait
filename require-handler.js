@@ -17,7 +17,7 @@ module.exports = function resolveRequireHandler(pLogProcess) {
 		const module = getModule(process.cwd(), modulePath, args)
 		if (module instanceof ChildProcess) {
 			if (module.stdout && module.stderr) {
-				pLogProcess(module)
+				pLogProcess(modulePath, module)
 			}
 
 			return new Promise(pResolve => {
@@ -30,8 +30,8 @@ module.exports = function resolveRequireHandler(pLogProcess) {
 			})
 		}
 		if (module instanceof EventEmitter) {
-			module.on('addProcess', pProcess => {
-				pLogProcess(pProcess)
+			module.on('addProcess', (pName, pProcess) => {
+				pLogProcess(pName, pProcess)
 			})
 			return new Promise(pResolve => {
 				module.on('ready', () => {

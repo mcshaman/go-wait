@@ -1,27 +1,26 @@
 const chalk = require('chalk')
 
 const colours = process.env.ANDTHEN_COLOURS || [
-	'green',
-	'blue',
-	'magenta',
-	'yellow',
-	'cyan',
+	'greenyellow',
+	'dodgerblue',
+	'hotpink',
+	'gold',
+	'lightseagreen',
 ]
-
-function pipeOutputs(pProcess, pFormat) {
-	pProcess.stdout.on('data', pData => {
-		process.stdout.write(pFormat(pData))
-	})
-	pProcess.stderr.on('data', pData => {
-		process.stderr.write(pFormat(pData))
-	})
-}
 
 let index = 0
 
-module.exports = function logProcess(pProcess) {
+module.exports = function logProcess(pName, pProcess) {
 	const colour = colours[index]
-	const format = chalk[colour]
-	pipeOutputs(pProcess, format)
+	const format = chalk.bold.inverse.keyword(colour)
+	const prefix = ` ${pName} `
+	
+	pProcess.stdout.on('data', pData => {
+		process.stdout.write(`${format(prefix)} ${pData}`)
+	})
+	pProcess.stderr.on('data', pData => {
+		process.stdout.write(`${format(prefix)} ${pData}`)
+	})
+
 	index = (index + 1) % colours.length
 }
