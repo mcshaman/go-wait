@@ -1,0 +1,10 @@
+{
+	"name": "examples",
+	"version": "1.0.0",
+	"scripts": {
+		"default": "andthen echo Hello world!",
+		"require": "andthen require ./module.js",
+		"run": "andthen run default",
+		"andthen": "andthen run default --and run default --then run default"
+	}
+}
