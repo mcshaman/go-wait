@@ -9,7 +9,7 @@ module.exports = pArgs => {
 	const timedProcess = spawn('node', [pArgs[0]])
 
 	process.nextTick(() => {
-		eventEmitter.emit('addProcess', pArgs[0], timedProcess)
+		eventEmitter.emit('addProcess', timedProcess, pArgs[0])
 	})
 
 	function keypressHandler(pKey, pData) {
@@ -29,7 +29,7 @@ module.exports = pArgs => {
 		process.stdin.unref()
 
 		const infinateProcess = spawn('node', [pArgs[1]])
-		eventEmitter.emit('addProcess', pArgs[1], infinateProcess)
+		eventEmitter.emit('addProcess', infinateProcess, pArgs[1])
 	})
 
 	return eventEmitter

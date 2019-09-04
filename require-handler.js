@@ -17,21 +17,23 @@ module.exports = function resolveRequireHandler(pLogProcess) {
 		const module = getModule(process.cwd(), modulePath, args)
 		if (module instanceof ChildProcess) {
 			if (module.stdout && module.stderr) {
-				pLogProcess(modulePath, module)
+				pLogProcess.addProcess(module, modulePath)
 			}
 
 			return new Promise(pResolve => {
 				module.on('ready', () => {
+					pLogProcess.removeProcess(module)
 					pResolve()
 				})
 				module.on('exit', () => {
+					pLogProcess.removeProcess(module)
 					pResolve()
 				})
 			})
 		}
 		if (module instanceof EventEmitter) {
-			module.on('addProcess', (pName, pProcess) => {
-				pLogProcess(pName, pProcess)
+			module.on('addProcess', (pProcess, pName = 'unnamed') => {
+				pLogProcess.addProcess(pProcess, pName)
 			})
 			return new Promise(pResolve => {
 				module.on('ready', () => {

@@ -7,10 +7,9 @@
 		"require:loopinfinate": "andthen require ./nodeProcess.js ./loopInfinate.js",
 		"require:ready": "andthen require ./ready.js ./loop3.js ./loopInfinate.js",
 		"require:loop3": "andthen require ./nodeProcess.js ./loop3.js",
-		"require:module": "andthen require nodemodule",
 		"run": "andthen run default",
 		"andthen": "andthen run default --and run default --then run default",
-		"andthen:kill": "node --inspect-brk ./node_modules/.bin/andthen run require:loopinfinate --then run require:loopinfinate --then run require:loopinfinate",
+		"andthen:kill": "andthen run require:loopinfinate --then run require:loopinfinate --then run require:loopinfinate",
 		"andthen:sequential": "andthen run require:loop3 --then run require:loop3 --then run require:loop3",
 		"andthen:ready": "andthen run require:ready --then run require:loop3"
 	}

@@ -5,6 +5,7 @@
 	},
 	"version": "1.0.0",
 	"devDependencies": {
+		"common-tags": "^1.8.0",
 		"jest": "^24.9.0"
 	},
 	"dependencies": {

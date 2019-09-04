@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const captain = require('captain-call')
-const logProcess = require('./logProcess')
+const logProcess = require('./logProcess')()
 const defaultHandler = require('./default-handler')(logProcess)
 const requireHandler = require('./require-handler')(logProcess)
 const runHandler = require('./run-handler')
