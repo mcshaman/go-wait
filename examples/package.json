@@ -2,15 +2,15 @@
 	"name": "examples",
 	"version": "1.0.0",
 	"scripts": {
-		"default": "andthen echo Hello world!",
-		"require:file": "andthen require ./module.js",
-		"require:loopinfinate": "andthen require ./nodeProcess.js ./loopInfinate.js",
-		"require:ready": "andthen require ./ready.js ./loop3.js ./loopInfinate.js",
-		"require:loop3": "andthen require ./nodeProcess.js ./loop3.js",
-		"run": "andthen run default",
-		"andthen": "andthen run default --and run default --then run default",
-		"andthen:kill": "andthen run require:loopinfinate --then run require:loopinfinate --then run require:loopinfinate",
-		"andthen:sequential": "andthen run require:loop3 --then run require:loop3 --then run require:loop3",
-		"andthen:ready": "andthen run require:ready --then run require:loop3"
+		"default": "[GO] echo Hello world!",
+		"require:file": "[GO] [REQUIRE] ./module.js",
+		"require:loopinfinate": "[GO] [REQUIRE] ./nodeProcess.js ./loopInfinate.js",
+		"require:ready": "[GO] [REQUIRE] ./ready.js ./loop3.js ./loopInfinate.js",
+		"require:loop3": "[GO] [REQUIRE] ./nodeProcess.js ./loop3.js",
+		"run": "[GO] [RUN] default",
+		"go-wait": "[GO] [RUN] default [WAIT] [RUN] default [GO] [RUN] default",
+		"go-wait:kill": "[GO] [RUN] require:loopinfinate [GO] [RUN] require:loopinfinate [GO] [RUN] require:loopinfinate",
+		"go-wait:sequential": "[GO] [RUN] require:loop3 [GO] [RUN] require:loop3 [GO] [RUN] require:loop3",
+		"go-wait:ready": "[GO] [RUN] require:ready [GO] [RUN] require:loop3"
 	}
 }

@@ -4,15 +4,19 @@ const logProcess = require('./logProcess')()
 const defaultHandler = require('./default-handler')(logProcess)
 const requireHandler = require('./require-handler')(logProcess)
 const runHandler = require('./run-handler')
-const andthenHandler = require('./andthen-handler')
+const goWaitHandler = require('./go-wait-handler')
 
-const andthen = captain
+const package = require('./package.json')
+const binCommands = Object.keys(package.bin)
+const goWaitCommand = binCommands[0]
+
+const goWait = captain
 	.add(defaultHandler)
-	.add('require', requireHandler)
-	.add('run', runHandler)
-	.add('andthen', andthenHandler)
+	.add('[REQUIRE]', requireHandler)
+	.add('[RUN]', runHandler)
+	.add(goWaitCommand, goWaitHandler)
 
-module.exports = andthen
+module.exports = goWait
 
 if (require.main === module) {
 	process.on('warning', pWarning => {
@@ -21,5 +25,5 @@ if (require.main === module) {
 		}
 	})
 
-	andthen.call(['andthen', ...process.argv.slice(2)])
+	goWait.call([goWaitCommand, ...process.argv.slice(2)])
 }

@@ -9,6 +9,11 @@ const DEFAULT_COLOURS = [
 	'lightseagreen',
 ]
 
+function getPrefix(pString, pSize, pFormat) {
+	const paddedString = pString.padStart(pSize, ' ')
+	return pFormat(` ${paddedString} `)
+}
+
 module.exports = function LogProcess(pColours) {
 	const processes = new Map()
 	let prefixSize = 0
@@ -30,8 +35,8 @@ module.exports = function LogProcess(pColours) {
 				terminal: true,
 			})
 			stdout.on('line', pLine => {
-				const prefix = ` ${pName.padStart(prefixSize, ' ')} `
-				process.stdout.write(`${format(prefix)} ${pLine}\n`)
+				const prefix = getPrefix(pName, prefixSize, format)
+				process.stdout.write(`${prefix} ${pLine}\n`)
 			})
 
 			const stderr = readline.createInterface({
@@ -39,8 +44,8 @@ module.exports = function LogProcess(pColours) {
 				terminal: true,
 			})
 			stderr.on('line', pLine => {
-				const prefix = ` ${pName.padStart(' ')} `
-				process.stdout.write(`${format(prefix)} ${pLine}\n`)
+				const prefix = getPrefix(pName, prefixSize, format)
+				process.stderr.write(`${prefix} ${pLine}\n`)
 			})
 
 			colourIndex = (colourIndex + 1) % colours.length

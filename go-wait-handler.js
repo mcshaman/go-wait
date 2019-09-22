@@ -1,8 +1,4 @@
-const andOptionName = process.env.ANDTNEN_AND || 'and'
-const thenOptionName = process.env.ANDTNEN_THEN || 'then'
-
-const thenFlag = `--${thenOptionName}`
-const andFlag = `--${andOptionName}`
+const WAIT_FLAG = `[WAIT]`
 
 function splitByFlag(pArgs, pFlag) {
 	const groups = [[]]
@@ -30,9 +26,10 @@ function promiseForEach(pArray, pPromiseCallback) {
 	return recursivePromise(0, pArray, pPromiseCallback)
 }
 
-module.exports = function andthenHandler(pCommand, pContext) {
+module.exports = function goWaitHandler(pCommand, pContext) {
 	const args = pCommand.slice(1)
-	const sequence = splitByFlag(args, thenFlag).map(pSteps => splitByFlag(pSteps, andFlag))
+	const sequence = splitByFlag(args, WAIT_FLAG).map(pSteps => splitByFlag(pSteps, pCommand[0]))
+
 	return promiseForEach(sequence, pCommands => {
 		const promises = pCommands.map(pCommand => {
 			return pContext.call(pCommand)
