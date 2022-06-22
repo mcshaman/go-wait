@@ -12,6 +12,6 @@
 		"captain-call": "git+https://github.com/mcshaman/captain-call.git",
 		"chalk": "^2.4.2",
 		"import-from": "^3.0.0",
-		"shell-quote": "^1.7.1"
+		"shell-quote": "^1.7.3"
 	}
 }
